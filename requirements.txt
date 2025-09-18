@@ -1,0 +1,16 @@
+streamlit
+requests
+fastapi
+uvicorn[standard]
+pydantic
+qdrant-client
+langchain
+openai
+sentence-transformers
+qdrant-langchain
+python-dotenv
+langchain-community
+fastembeddings
+dotenv
+langchain-google-genai
+langgraph
