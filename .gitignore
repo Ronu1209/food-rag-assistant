@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtualenv
+.env
+venv/
+pipenv/
+*.env
+
+# Streamlit cache
+.streamlit/
+
+# VSCode
+.vscode/
+
+# Mac/Linux system files
+.DS_Store
+*.swp
+
+# Data files
+data/
+

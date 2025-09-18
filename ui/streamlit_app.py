@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
+import os
 
-API_URL = "http://127.0.0.1:8000/query"  # FastAPI backend
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/query")  # FastAPI backend
 
 st.set_page_config(page_title="Recipe RAG Assistant", page_icon="🍲")
 
