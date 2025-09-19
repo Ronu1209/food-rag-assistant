@@ -7,10 +7,10 @@ qdrant-client
 langchain
 openai
 sentence-transformers
-qdrant-langchain
+langchain-qdrant
 python-dotenv
 langchain-community
-fastembeddings
+fastembed
 dotenv
 langchain-google-genai
 langgraph
