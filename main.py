@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, TypedDict
 
 from src.store import client, collection_name, create_collection_safe, dense_embedding_model, sparse_embedding_model
 from qdrant_client import models
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import StateGraph, START, END
-from typing import TypedDict
 
 # Initialize FastAPI
 app = FastAPI(title="Recipe RAG Assistant", version="1.0")
@@ -24,10 +23,6 @@ class RAGState(TypedDict):
     answer: str
     filter_conditions: Optional[Dict[str, Any]]
 
-
-# -----------------------------
-# Search Function
-# -----------------------------
 def search(state: RAGState) -> RAGState:
     query = state["query"]
 
@@ -57,10 +52,6 @@ def search(state: RAGState) -> RAGState:
     state["context"] = context
     return state
 
-
-# -----------------------------
-# Answer Function
-# -----------------------------
 def answer(state: RAGState) -> RAGState:
     context = " ".join(state["context"])
     query = state["query"]
@@ -83,10 +74,6 @@ If the answer is not in the context, say: "I don't know, not enough information 
     state["answer"] = answer_text.content
     return state
 
-
-# -----------------------------
-# Build Workflow Graph
-# -----------------------------
 workflow = StateGraph(RAGState)
 workflow.add_node("search_context", search)
 workflow.add_node("answer_generation", answer)
@@ -95,10 +82,6 @@ workflow.add_edge("search_context", "answer_generation")
 workflow.add_edge("answer_generation", END)
 graph = workflow.compile()
 
-
-# -----------------------------
-# API Models
-# -----------------------------
 class QueryIn(BaseModel):
     query: str
     filters: Optional[Dict[str, Any]] = None
@@ -107,10 +90,6 @@ class QueryIn(BaseModel):
 class QueryOut(BaseModel):
     answer: str
 
-
-# -----------------------------
-# Routes
-# -----------------------------
 @app.post("/query", response_model=QueryOut)
 def query_recipe(in_data: QueryIn):
     """Ask a recipe-related question."""

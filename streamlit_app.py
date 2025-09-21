@@ -1,6 +1,4 @@
 import streamlit as st
-import requests
-import os
 from dotenv import load_dotenv
 from main import graph
 
